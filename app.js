@@ -1,6 +1,6 @@
 
 let board = '';
-let squareIndex = '';
+let cardIndex = '';
 let firstCardId = '';
 let firstCard = '';
 let secondCardId = '';
@@ -28,28 +28,43 @@ board = [
 
 const cards = document.querySelectorAll('.card');
 
-const compare = (a, b) => {
+const populateBoard = (board) => {
+  cards.forEach((card, index) => {
+    card.id = board[index];
+  });
+}
+populateBoard(board);
+
+const compare = () => {
   if (firstCardId === secondCardId) {
     console.log('Match!');
+    firstCardId = '';
+    secondCardId = '';
+  } else {
+    console.log('incorrect');
+    firstCardId = '';
+    secondCardId = '';
   }
 };
 
 cards.forEach((card) => {
     card.addEventListener('click', (event) => {
+      cardIndex = event.target.id;
         if (card === firstCard) {
           return;
         }
         if (!firstCardId) {
-        firstCardId = event.target.id;
+        firstCardId = cardIndex;
         firstCard = card;
         console.log(`first, ${firstCardId}`);
       } else if (!secondCardId) {
-        secondCardId = event.target.id;
+        secondCardId = cardIndex;
         console.log(`second, ${secondCardId}`);
+        compare();
       }
-      compare()
    });
 })
+
 
 
 //---------------------------------------------------------------------------
