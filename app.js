@@ -1,12 +1,38 @@
-const cards = document.querySelectorAll('.card');
+
 let board = '';
+let squareIndex = '';
 let firstCardId = '';
 let firstCard = '';
 let secondCardId = '';
 let scoreCount = 0;
 let IncorrectCount = 0;
 
-board = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
+board = [
+  'guitar', 
+  'drums', 
+  'bass', 
+  'keyboard', 
+  'mic', 
+  'sax', 
+  'drums', 
+  'sax', 
+  'keyboard', 
+  'mic', 
+  'guitar', 
+  'trumpet', 
+  'fiddle', 
+  'bass', 
+  'fiddle', 
+  'trumpet'
+];
+
+const cards = document.querySelectorAll('.card');
+
+const compare = (a, b) => {
+  if (firstCardId === secondCardId) {
+    console.log('Match!');
+  }
+};
 
 cards.forEach((card) => {
     card.addEventListener('click', (event) => {
@@ -21,12 +47,13 @@ cards.forEach((card) => {
         secondCardId = event.target.id;
         console.log(`second, ${secondCardId}`);
       }
+      compare()
    });
 })
 
 
 //---------------------------------------------------------------------------
-timerEl = document.querySelector('.timer');
+/*timerEl = document.querySelector('.timer');
 
 function init() {
   // model - bindings: variables, DOM references, other values related to application state 
@@ -64,4 +91,4 @@ function init() {
   // number - interger (in milliseconds)
 }
 
-init()
+init()*/
