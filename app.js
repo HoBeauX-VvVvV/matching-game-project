@@ -1,4 +1,3 @@
-
 let board = '';
 let cardValue = '';
 let firstCardId = '';
@@ -7,6 +6,7 @@ let secondCardId = '';
 let correctCount = 0;
 let incorrectCount = 10;
 let cardLocation = '';
+let frozenBoard = false;
 
 board = [
   'guitar', 
@@ -41,8 +41,8 @@ const populateBoard = (board) => {
 
 
 window.onload = populateBoard(board);
-correctCountEl.textContent = correctCount;
-incorrectCountEl.textContent = incorrectCount;
+correctCountEl.textContent = `Matches: ${correctCount}`;
+incorrectCountEl.textContent = `Misses: ${incorrectCount}`;
 
 
 const removeCard = (card) => {
@@ -59,13 +59,13 @@ const compare = () => {
   if (firstCardId === secondCardId) {
     correctCount += 1;
     console.log('Match!');
-    correctCountEl.textContent = correctCount;
+    correctCountEl.textContent = `Matches: ${correctCount}`;
     removeCard();
     checkForWin();
   } else {
     console.log('incorrect');
     incorrectCount -= 1;
-    incorrectCountEl.textContent = incorrectCount;
+    incorrectCountEl.textContent = `Misses: ${incorrectCount}`;
     checkForWin()
     firstCardId = '';
     secondCardId = '';
@@ -75,6 +75,7 @@ const compare = () => {
 
 cards.forEach((card, index) => {
     card.addEventListener('click', (event) => {
+      if (frozenBoard) return;
       cardValue = event.target.id; 
         if (card === firstCard) {
           return;
@@ -100,19 +101,20 @@ const resetGame = () => {
   firstCardId = '';
   secondCardId = '';
   correctCount = 0;
-  correctCountEl.textContent = correctCount;
+  correctCountEl.textContent = `Matches: ${correctCount}`;
   incorrectCount = 10;
-  incorrectCountEl.textContent = incorrectCount;
+  incorrectCountEl.textContent = `Misses: ${incorrectCount}`;
   //populateBoard(board);
 }
 
 
 const checkForWin = () => {
    if (correctCount === 8) {
-    console.log('You won the game!')
+    correctCountEl.textContent = `You won the game with ${correctCount} matches!`
   } 
    if (incorrectCount === 0) {
-    console.log('You lost the game!');
+    frozenBoard = true;
+    incorrectCountEl.textContent = "You've lost";
   }
 };
 
@@ -121,42 +123,32 @@ resetButtonEl.addEventListener('click', (event) => {
      resetGame();
 });
 //---------------------------------------------------------------------------
-/*timerEl = document.querySelector('.timer');
+timerEl = document.querySelector('.timer');
 
 function init() {
-  // model - bindings: variables, DOM references, other values related to application state 
   let interval;
   let count = 180
   let base = 1000
 
-  //view - applications where the UI is updated / provided current data
   function renderNum(num) {
-    timerEl.textContent = num;
-    //console.log(`${num}`)
+    const minutes = Math.floor(num / 60);
+    const seconds = num % 60;
+    const formattedTime = `${minutes}:${seconds}`;
+    timerEl.textContent = formattedTime;
   }
-
-  //controller - application logic (event listeners )
   function increment(value, step) {
     return value += step
   }
 
   interval = setInterval(() => {
-
-    // display content
-    renderNum(count)
-
-    // update         
+    renderNum(count)       
     count = increment(count, -1)
 
     if (count <= 0) {
-      // game over state
+      frozenBoard = true;
+      correctCountEl.textContent =`Time's up!`
       clearInterval(interval)
     }
-
   }, base)
-  // setInterval(function, number)
-  // function - anonymous
-  // number - interger (in milliseconds)
 }
-
-init()*/
+init()
