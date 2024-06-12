@@ -32,6 +32,7 @@ const correctCountEl = document.querySelector('#correctCount');
 const incorrectCountEl = document.querySelector('#incorrectCount');
 const resetButtonEl = document.querySelector('.reset');
 
+
 const populateBoard = (board) => {
   cards.forEach((card, index) => {
     card.id = board[index];
@@ -60,10 +61,12 @@ const compare = () => {
     console.log('Match!');
     correctCountEl.textContent = correctCount;
     removeCard();
+    checkForWin();
   } else {
     console.log('incorrect');
     incorrectCount -= 1;
     incorrectCountEl.textContent = incorrectCount;
+    checkForWin()
     firstCardId = '';
     secondCardId = '';
   }
@@ -97,9 +100,21 @@ const resetGame = () => {
   firstCardId = '';
   secondCardId = '';
   correctCount = 0;
+  correctCountEl.textContent = correctCount;
   incorrectCount = 10;
-  populateBoard(board);
+  incorrectCountEl.textContent = incorrectCount;
+  //populateBoard(board);
 }
+
+
+const checkForWin = () => {
+   if (correctCount === 8) {
+    console.log('You won the game!')
+  } 
+   if (incorrectCount === 0) {
+    console.log('You lost the game!');
+  }
+};
 
 
 resetButtonEl.addEventListener('click', (event) => {
