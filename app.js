@@ -7,6 +7,7 @@ let correctCount = 0;
 let incorrectCount = 10;
 let cardLocation = '';
 let frozenBoard = false;
+let isFirstClick = true;
 
 board = [
   'guitar', 
@@ -51,7 +52,7 @@ const removeCard = (card) => {
     secondCard.style.visibility = 'hidden';
      firstCardId = '';
      secondCardId = '';
-  }, 1000);
+  }, 500);
 }
 
 
@@ -76,6 +77,10 @@ const compare = () => {
 cards.forEach((card, index) => {
     card.addEventListener('click', (event) => {
       if (frozenBoard) return;
+      if (isFirstClick) {
+        init();
+        isFirstClick = false;
+      }
       cardValue = event.target.id; 
         if (card === firstCard) {
           return;
@@ -104,6 +109,7 @@ const resetGame = () => {
   correctCountEl.textContent = `Matches: ${correctCount}`;
   incorrectCount = 10;
   incorrectCountEl.textContent = `Misses: ${incorrectCount}`;
+  isFirstClick = true;
   //populateBoard(board);
 }
 
@@ -126,24 +132,24 @@ resetButtonEl.addEventListener('click', (event) => {
 timerEl = document.querySelector('.timer');
 
 function init() {
+  
   let interval;
-  let count = 180
+  let count = 119
   let base = 1000
 
+  
   function renderNum(num) {
     const minutes = Math.floor(num / 60);
     const seconds = num % 60;
-    const formattedTime = `${minutes}:${seconds}`;
+    const formattedTime = `Time left ${minutes}:${seconds}`;
     timerEl.textContent = formattedTime;
   }
   function increment(value, step) {
     return value += step
   }
-
   interval = setInterval(() => {
     renderNum(count)       
     count = increment(count, -1)
-
     if (count <= 0) {
       frozenBoard = true;
       correctCountEl.textContent =`Time's up!`
@@ -151,4 +157,3 @@ function init() {
     }
   }, base)
 }
-init()

@@ -4,17 +4,23 @@ body {
 
 section {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+.score {
     justify-content: space-around;
 }
 
 div {
+    transform: rotateY(0);
+    transition: 0.5s;
     background-color: #F491D9;
     display: flex;
     flex-wrap: wrap;
-    height: 150px;
-    width: 125px;
-    margin: 20px;
+    height: 140px;
+    width: 115px;
+    margin: 15px;
     justify-content:center;
     align-items: center;
     border: 5px solid;
