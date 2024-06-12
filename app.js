@@ -1,11 +1,12 @@
 
 let board = '';
-let cardIndex = '';
+let cardValue = '';
 let firstCardId = '';
 let firstCard = '';
 let secondCardId = '';
-let scoreCount = 0;
-let IncorrectCount = 0;
+let correctCount = 0;
+let incorrectCount = 0;
+let cardLocation = '';
 
 board = [
   'guitar', 
@@ -27,44 +28,59 @@ board = [
 ];
 
 const cards = document.querySelectorAll('.card');
+const correctCountEl = document.querySelector('#correctCount');
+const incorrectCountEl = document.querySelector('#incorrectCount');
+
 
 const populateBoard = (board) => {
   cards.forEach((card, index) => {
     card.id = board[index];
+   // console.log(card.id);
   });
 }
-populateBoard(board);
+window.onload = populateBoard(board);
+
+const removeCard = (card) => {
+    firstCard.style.visibility = 'hidden';
+    secondCard.style.visibility = 'hidden';
+     firstCardId = '';
+     secondCardId = '';
+}
 
 const compare = () => {
   if (firstCardId === secondCardId) {
+    correctCount += 1;
     console.log('Match!');
-    firstCardId = '';
-    secondCardId = '';
+    correctCountEl.textContent = correctCount;
+    removeCard();
   } else {
     console.log('incorrect');
+    incorrectCount += 1;
+    incorrectCountEl.textContent = incorrectCount;
     firstCardId = '';
     secondCardId = '';
   }
 };
 
-cards.forEach((card) => {
+cards.forEach((card, index) => {
     card.addEventListener('click', (event) => {
-      cardIndex = event.target.id;
+      cardValue = event.target.id;
+      //cardLocation = board[index]; 
         if (card === firstCard) {
           return;
         }
         if (!firstCardId) {
-        firstCardId = cardIndex;
+        firstCardId = cardValue;
         firstCard = card;
         console.log(`first, ${firstCardId}`);
       } else if (!secondCardId) {
-        secondCardId = cardIndex;
+        secondCardId = cardValue;
+        secondCard = card;
         console.log(`second, ${secondCardId}`);
         compare();
       }
    });
 })
-
 
 
 //---------------------------------------------------------------------------

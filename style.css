@@ -2,10 +2,11 @@ section {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    background-color:rgba(255, 249, 81, 0.573)
 }
 
 div {
-    background-color: red;
+    background-color: #F491D9;
     display: flex;
     flex-wrap: wrap;
     height: 150px;
@@ -17,7 +18,8 @@ div {
     border-radius: 15px;
 }
 
+
 div:hover {
-    background-color: darkred;
+    background-color: rgb(59, 219, 216);
     cursor: grab;
 }
