@@ -5,7 +5,7 @@ let firstCardId = '';
 let firstCard = '';
 let secondCardId = '';
 let correctCount = 0;
-let incorrectCount = 0;
+let incorrectCount = 10;
 let cardLocation = '';
 
 board = [
@@ -30,22 +30,29 @@ board = [
 const cards = document.querySelectorAll('.card');
 const correctCountEl = document.querySelector('#correctCount');
 const incorrectCountEl = document.querySelector('#incorrectCount');
-
+const resetButtonEl = document.querySelector('.reset');
 
 const populateBoard = (board) => {
   cards.forEach((card, index) => {
     card.id = board[index];
-   // console.log(card.id);
   });
 }
+
+
 window.onload = populateBoard(board);
+correctCountEl.textContent = correctCount;
+incorrectCountEl.textContent = incorrectCount;
+
 
 const removeCard = (card) => {
+  setTimeout(() => {
     firstCard.style.visibility = 'hidden';
     secondCard.style.visibility = 'hidden';
      firstCardId = '';
      secondCardId = '';
+  }, 1000);
 }
+
 
 const compare = () => {
   if (firstCardId === secondCardId) {
@@ -55,17 +62,17 @@ const compare = () => {
     removeCard();
   } else {
     console.log('incorrect');
-    incorrectCount += 1;
+    incorrectCount -= 1;
     incorrectCountEl.textContent = incorrectCount;
     firstCardId = '';
     secondCardId = '';
   }
 };
 
+
 cards.forEach((card, index) => {
     card.addEventListener('click', (event) => {
-      cardValue = event.target.id;
-      //cardLocation = board[index]; 
+      cardValue = event.target.id; 
         if (card === firstCard) {
           return;
         }
@@ -83,6 +90,21 @@ cards.forEach((card, index) => {
 })
 
 
+const resetGame = () => {
+  cards.forEach((card) => {
+    card.style.visibility = 'visible';
+  })
+  firstCardId = '';
+  secondCardId = '';
+  correctCount = 0;
+  incorrectCount = 10;
+  populateBoard(board);
+}
+
+
+resetButtonEl.addEventListener('click', (event) => {
+     resetGame();
+});
 //---------------------------------------------------------------------------
 /*timerEl = document.querySelector('.timer');
 
