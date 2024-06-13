@@ -13,17 +13,17 @@ section {
 }
 
 div {
-    transform: rotateY(0);
-    transition: 0.5s;
     background-color: #F491D9;
+    color:rgba(0, 0, 0, 0);
     display: flex;
     flex-wrap: wrap;
     height: 140px;
     width: 115px;
     margin: 10px;
+    font-size: 45px;
     justify-content:center;
     align-items: center;
-    border: 5px solid;
+    border: 5px solid black;
     border-radius: 15px;
 }
 
@@ -40,4 +40,21 @@ div:hover {
   border-radius: 20px;
   font-size: 25px;
   font-weight: bolder;
+}
+
+div.show {
+    transform: rotateY(0);
+    transition: 1s;
+    background-color: #2c0fea;
+    color:rgb(255, 255, 255);
+    display: flex;
+    flex-wrap: wrap;
+    height: 140px;
+    width: 115px;
+    margin: 10px;
+    font-size: 45px;
+    justify-content:center;
+    align-items: center;
+    border: 5px solid black;
+    border-radius: 15px;
 }

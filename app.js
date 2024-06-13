@@ -39,6 +39,7 @@ const resetButtonEl = document.querySelector('.reset');
 const populateBoard = (board) => {
   cards.forEach((card, index) => {
     card.id = board[index];
+    card.textContent = board[index];
   });
 }
 
@@ -54,7 +55,14 @@ const removeCard = (card) => {
     secondCard.style.visibility = 'hidden';
      firstCardId = '';
      secondCardId = '';
-  }, 500);
+  }, 250);
+}
+
+const resetCard = (card) => {
+  setTimeout(() => {
+  firstCard.classList.remove('show');
+  secondCard.classList.remove('show');
+  }, 250);
 }
 
 
@@ -69,7 +77,8 @@ const compare = () => {
     console.log('incorrect');
     incorrectCount -= 1;
     incorrectCountEl.textContent = `Misses: ${incorrectCount}`;
-    checkForWin()
+    checkForWin();
+    resetCard();
     firstCardId = '';
     secondCardId = '';
   }
@@ -79,9 +88,11 @@ const compare = () => {
 cards.forEach((card, index) => {
     card.addEventListener('click', (event) => {
       if (frozenBoard) return;
+      card.classList.add('show');
       if (isFirstClick) {
         init();
         isFirstClick = false;
+       
       }
       cardValue = event.target.id; 
         if (card === firstCard) {
@@ -104,9 +115,11 @@ cards.forEach((card, index) => {
 const resetGame = () => {
   cards.forEach((card) => {
     card.style.visibility = 'visible';
+    card.classList.remove('show');
   })
   firstCardId = '';
   secondCardId = '';
+  timerEl.textContent = 'Time left 2:00'
   correctCount = 0;
   correctCountEl.textContent = `Matches: ${correctCount}`;
   incorrectCount = 10;
@@ -131,16 +144,15 @@ const checkForWin = () => {
 
 resetButtonEl.addEventListener('click', (event) => {
      resetGame();
+     stopTimer();
 });
 //---------------------------------------------------------------------------
 timerEl = document.querySelector('.timer');
 
 function init() {
   
-  
   let base = 1000
 
-  
   function renderNum(num) {
     const minutes = Math.floor(num / 60);
     const seconds = num % 60;
