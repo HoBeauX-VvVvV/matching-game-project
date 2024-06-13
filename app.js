@@ -55,14 +55,14 @@ const removeCard = (card) => {
     secondCard.style.visibility = 'hidden';
      firstCardId = '';
      secondCardId = '';
-  }, 250);
+  }, 50);
 }
 
 const resetCard = (card) => {
   setTimeout(() => {
   firstCard.classList.remove('show');
   secondCard.classList.remove('show');
-  }, 250);
+  }, 350);
 }
 
 
