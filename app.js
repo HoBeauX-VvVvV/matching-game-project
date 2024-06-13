@@ -8,6 +8,8 @@ let incorrectCount = 10;
 let cardLocation = '';
 let frozenBoard = false;
 let isFirstClick = true;
+let interval;
+let count = 119
 
 board = [
   'guitar', 
@@ -116,10 +118,12 @@ const resetGame = () => {
 
 const checkForWin = () => {
    if (correctCount === 8) {
+    stopTimer();
     correctCountEl.textContent = `You won the game with ${correctCount} matches!`
   } 
    if (incorrectCount === 0) {
     frozenBoard = true;
+    stopTimer();
     incorrectCountEl.textContent = "You've lost";
   }
 };
@@ -133,8 +137,7 @@ timerEl = document.querySelector('.timer');
 
 function init() {
   
-  let interval;
-  let count = 119
+  
   let base = 1000
 
   
@@ -153,7 +156,12 @@ function init() {
     if (count <= 0) {
       frozenBoard = true;
       correctCountEl.textContent =`Time's up!`
+      timerEl.textContent = `Time left 0:00`
       clearInterval(interval)
     }
   }, base)
 }
+
+const stopTimer = () => {
+  clearInterval(interval);
+};

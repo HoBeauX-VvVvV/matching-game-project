@@ -1,5 +1,5 @@
 body {
-    background-color:rgba(255, 249, 81, 0.573)
+    background-color:rgba(255, 249, 81, 0.573);
 } 
 
 section {
@@ -20,7 +20,7 @@ div {
     flex-wrap: wrap;
     height: 140px;
     width: 115px;
-    margin: 15px;
+    margin: 10px;
     justify-content:center;
     align-items: center;
     border: 5px solid;
@@ -31,4 +31,13 @@ div {
 div:hover {
     background-color: rgb(59, 219, 216);
     cursor: grab;
+}
+
+.reset {
+  width: 150px;
+  height: 70px;
+  background-color: rgb(231, 9, 168);
+  border-radius: 20px;
+  font-size: 25px;
+  font-weight: bolder;
 }
