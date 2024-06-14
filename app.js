@@ -34,6 +34,10 @@ const cards = document.querySelectorAll('div');
 const correctCountEl = document.querySelector('#correctCount');
 const incorrectCountEl = document.querySelector('#incorrectCount');
 const resetButtonEl = document.querySelector('.reset');
+const gameMessageEl = document.querySelector('h3');
+
+const matchSound = new Audio("./assets/success.mp3");
+const nomatchSound = new Audio("./assets/negative-beep.mp3");
 
 
 const populateBoard = (board) => {
@@ -51,18 +55,28 @@ incorrectCountEl.textContent = `Misses: ${incorrectCount}`;
 
 const removeCard = (card) => {
   setTimeout(() => {
+    matchSound.volume = .25;
+    matchSound.play();
     firstCard.style.visibility = 'hidden';
     secondCard.style.visibility = 'hidden';
-     firstCardId = '';
-     secondCardId = '';
-  }, 50);
+    firstCardId = '';
+    secondCardId = '';
+    firstCard = '';
+    secondCard = '';
+  }, 550);
 }
 
 const resetCard = (card) => {
   setTimeout(() => {
-  firstCard.classList.remove('show');
-  secondCard.classList.remove('show');
-  }, 350);
+    nomatchSound.volume = .25;
+    nomatchSound.play();
+    firstCard.classList.remove('show');
+    secondCard.classList.remove('show');
+    firstCardId = '';
+    secondCardId = '';
+    firstCard = '';
+    secondCard = '';
+  }, 850);
 }
 
 
@@ -77,7 +91,8 @@ const compare = () => {
     console.log('incorrect');
     incorrectCount -= 1;
     incorrectCountEl.textContent = `Misses: ${incorrectCount}`;
-    checkForWin();
+    
+checkForWin();
     resetCard();
     firstCardId = '';
     secondCardId = '';
@@ -125,6 +140,8 @@ const resetGame = () => {
   incorrectCount = 10;
   incorrectCountEl.textContent = `Misses: ${incorrectCount}`;
   isFirstClick = true;
+  count = 119;
+  gameMessageEl.textContent = `Select two cards and see if they match`
   //populateBoard(board);
 }
 
@@ -132,12 +149,14 @@ const resetGame = () => {
 const checkForWin = () => {
    if (correctCount === 8) {
     stopTimer();
-    correctCountEl.textContent = `You won the game!`
+    correctCountEl.textContent = `You won the game!`;
+    gameMessageEl.textContent = `Congardulations!!!`
   } 
    if (incorrectCount === 0) {
     frozenBoard = true;
     stopTimer();
     incorrectCountEl.textContent = "You've lost";
+    gameMessageEl.textContent = `Sorry. Please try again`;
   }
 };
 
@@ -168,6 +187,7 @@ function init() {
     if (count <= 0) {
       frozenBoard = true;
       correctCountEl.textContent =`Time's up!`
+      gameMessageEl.textContent = `Sorry. Please try again`;
       timerEl.textContent = `Time left 0:00`
       clearInterval(interval)
     }
