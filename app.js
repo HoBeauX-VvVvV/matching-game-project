@@ -30,7 +30,7 @@ board = [
   'trumpet'
 ];
 
-const cards = document.querySelectorAll('.card');
+const cards = document.querySelectorAll('div');
 const correctCountEl = document.querySelector('#correctCount');
 const incorrectCountEl = document.querySelector('#incorrectCount');
 const resetButtonEl = document.querySelector('.reset');
@@ -132,7 +132,7 @@ const resetGame = () => {
 const checkForWin = () => {
    if (correctCount === 8) {
     stopTimer();
-    correctCountEl.textContent = `You won the game with ${correctCount} matches!`
+    correctCountEl.textContent = `You won the game!`
   } 
    if (incorrectCount === 0) {
     frozenBoard = true;
