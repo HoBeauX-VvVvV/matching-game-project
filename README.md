@@ -3,9 +3,15 @@
 Name: Music Matching Cards-a musical instrument themed card matching game, a pair of cards is selected by the user and checked for a match, 
 a correct match removes the cards, an incorrect guess returns the cards, points are scored accordingly.
 
-I chose this game because I though it would be challenging enough without being more that I could complete. 
+Background: I chose this game because I though it would be challenging enough without being more that I could complete. 
 I was hoping I would have more time for styling but I was unable to implement 
 images onto the cards and that used up the bulk of the time I would have spent styling.
+
+Getting Started: Match all the card pairs before time runs out.
+https://hobeaux-vvvvv.github.io/matching-game-project/
+I used these for inspiration:
+https://www.codewithfaraz.com/content/112/creating-flip-card-memory-game-with-html-css-and-javascript
+https://www.helpfulgames.com/subjects/brain-training/memory.html
 
 Attributions:
 I used a few sound files: https://pixabay.com/sound-effects/
