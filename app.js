@@ -4,7 +4,7 @@ let firstCardId = '';
 let firstCard = '';
 let secondCardId = '';
 let correctCount = 0;
-let incorrectCount = 15;
+let incorrectCount = 14;
 let cardLocation = '';
 let frozenBoard = false;
 let isFirstClick = true;
@@ -35,7 +35,6 @@ const correctCountEl = document.querySelector('#correctCount');
 const incorrectCountEl = document.querySelector('#incorrectCount');
 const resetButtonEl = document.querySelector('.reset');
 const gameMessageEl = document.querySelector('h3');
-
 const matchSound = new Audio("./assets/success.mp3");
 const nomatchSound = new Audio("./assets/negative-beep.mp3");
 
@@ -56,7 +55,6 @@ const populateBoard = () => {
     card.textContent = shuffledBoard[index];
   });
 }
-console.log(shuffledBoard);
 
 window.onload = populateBoard();
 correctCountEl.textContent = `Matches: ${correctCount}`;
@@ -117,13 +115,12 @@ cards.forEach((card) => {
       if (isFirstClick) {
         init();
         isFirstClick = false;
-       
       }
-      cardValue = event.target.id; 
-        if (card === firstCard) {
+    cardValue = event.target.id; 
+      if (card === firstCard) {
           return;
-        }
-        if (!firstCardId) {
+      }
+       if (!firstCardId) {
         firstCardId = cardValue;
         firstCard = card;
         console.log(`first, ${firstCardId}`);
@@ -134,7 +131,7 @@ cards.forEach((card) => {
         compare();
       }
    });
-})
+});
 
 
 const resetGame = () => {
@@ -142,20 +139,20 @@ const resetGame = () => {
     card.style.visibility = 'visible';
     card.classList.remove('show');
   });
-  shuffledBoard = shuffleArray([...board]);
-  populateBoard()
-  firstCardId = '';
-  secondCardId = '';
-  timerEl.textContent = 'Time left 2:00'
-  correctCount = 0;
-  correctCountEl.textContent = `Matches: ${correctCount}`;
-  incorrectCount = 15;
-  incorrectCountEl.textContent = `Misses: ${incorrectCount}`;
-  isFirstClick = true;
-  frozenBoard = false;
-  count = 119;
-  gameMessageEl.textContent = `Select two cards and see if they match`;
-}
+    shuffledBoard = shuffleArray([...board]);
+    populateBoard()
+    firstCardId = '';
+    secondCardId = '';
+    timerEl.textContent = 'Time left 2:00'
+    correctCount = 0;
+    correctCountEl.textContent = `Matches: ${correctCount}`;
+    incorrectCount = 15;
+    incorrectCountEl.textContent = `Misses: ${incorrectCount}`;
+    isFirstClick = true;
+    frozenBoard = false;
+    count = 119;
+    gameMessageEl.textContent = `Select two cards to see if they match`;
+  }
 
 
 const checkForWin = () => {
