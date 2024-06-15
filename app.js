@@ -4,12 +4,12 @@ let firstCardId = '';
 let firstCard = '';
 let secondCardId = '';
 let correctCount = 0;
-let incorrectCount = 14;
+let incorrectCount = 10;
 let cardLocation = '';
 let frozenBoard = false;
 let isFirstClick = true;
 let interval;
-let count = 119
+let count = 59
 
 board = [
   'guitar', 
@@ -34,7 +34,7 @@ const cards = document.querySelectorAll('div');
 const correctCountEl = document.querySelector('#correctCount');
 const incorrectCountEl = document.querySelector('#incorrectCount');
 const resetButtonEl = document.querySelector('.reset');
-const gameMessageEl = document.querySelector('h3');
+const gameMessageEl = document.querySelector('h2');
 const matchSound = new Audio("./assets/success.mp3");
 const nomatchSound = new Audio("./assets/negative-beep.mp3");
 
@@ -143,14 +143,14 @@ const resetGame = () => {
     populateBoard()
     firstCardId = '';
     secondCardId = '';
-    timerEl.textContent = 'Time left 2:00'
+    timerEl.textContent = 'Time left 1:00'
     correctCount = 0;
     correctCountEl.textContent = `Matches: ${correctCount}`;
-    incorrectCount = 15;
+    incorrectCount = 10;
     incorrectCountEl.textContent = `Misses: ${incorrectCount}`;
     isFirstClick = true;
     frozenBoard = false;
-    count = 119;
+    count = 59;
     gameMessageEl.textContent = `Select two cards to see if they match`;
   }
 
@@ -158,14 +158,14 @@ const resetGame = () => {
 const checkForWin = () => {
    if (correctCount === 8) {
     stopTimer();
-    correctCountEl.textContent = `You won the game!`;
-    gameMessageEl.textContent = `Congardulations!!!`
+    correctCountEl.textContent = `You got all 8 matches!`;
+    gameMessageEl.textContent = `Congratulations!! You won the game!`
   } 
    if (incorrectCount === 0) {
     frozenBoard = true;
     stopTimer();
-    incorrectCountEl.textContent = "You've lost";
-    gameMessageEl.textContent = `Sorry. Please try again`;
+    correctCountEl.textContent = "You've lost";
+    gameMessageEl.textContent = 'Sorry. Please try again';
   }
 };
 
