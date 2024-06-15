@@ -4,7 +4,7 @@ let firstCardId = '';
 let firstCard = '';
 let secondCardId = '';
 let correctCount = 0;
-let incorrectCount = 10;
+let incorrectCount = 15;
 let cardLocation = '';
 let frozenBoard = false;
 let isFirstClick = true;
@@ -40,15 +40,25 @@ const matchSound = new Audio("./assets/success.mp3");
 const nomatchSound = new Audio("./assets/negative-beep.mp3");
 
 
-const populateBoard = (board) => {
+const shuffleArray = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};
+
+let shuffledBoard = shuffleArray([...board]);
+
+const populateBoard = () => {
   cards.forEach((card, index) => {
-    card.id = board[index];
-    card.textContent = board[index];
+    card.id = shuffledBoard[index];
+    card.textContent = shuffledBoard[index];
   });
 }
+console.log(shuffledBoard);
 
-
-window.onload = populateBoard(board);
+window.onload = populateBoard();
 correctCountEl.textContent = `Matches: ${correctCount}`;
 incorrectCountEl.textContent = `Misses: ${incorrectCount}`;
 
@@ -100,7 +110,7 @@ checkForWin();
 };
 
 
-cards.forEach((card, index) => {
+cards.forEach((card) => {
     card.addEventListener('click', (event) => {
       if (frozenBoard) return;
       card.classList.add('show');
@@ -131,18 +141,20 @@ const resetGame = () => {
   cards.forEach((card) => {
     card.style.visibility = 'visible';
     card.classList.remove('show');
-  })
+  });
+  shuffledBoard = shuffleArray([...board]);
+  populateBoard()
   firstCardId = '';
   secondCardId = '';
   timerEl.textContent = 'Time left 2:00'
   correctCount = 0;
   correctCountEl.textContent = `Matches: ${correctCount}`;
-  incorrectCount = 10;
+  incorrectCount = 15;
   incorrectCountEl.textContent = `Misses: ${incorrectCount}`;
   isFirstClick = true;
+  frozenBoard = false;
   count = 119;
-  gameMessageEl.textContent = `Select two cards and see if they match`
-  //populateBoard(board);
+  gameMessageEl.textContent = `Select two cards and see if they match`;
 }
 
 
@@ -160,10 +172,11 @@ const checkForWin = () => {
   }
 };
 
+populateBoard(shuffleArray([...board]));
 
 resetButtonEl.addEventListener('click', (event) => {
      resetGame();
-     stopTimer();
+     stopTimer();     
 });
 //---------------------------------------------------------------------------
 timerEl = document.querySelector('.timer');
